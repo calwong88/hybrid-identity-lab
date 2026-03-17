@@ -1,109 +1,216 @@
-# Hybrid Identity Lab (Active Directory + Microsoft Entra ID)
+# Setup Guide: Hybrid Identity Lab
 
-## 🚀 Overview
-This project demonstrates a **hybrid identity environment** integrating on-premises **Active Directory** with **Microsoft Entra ID (Azure AD)** using Microsoft Entra Connect.
-
-It simulates a real enterprise setup where identities are managed on-premises and synchronized securely to the cloud.
-
----
-
-## 🏗️ Architecture
-
-```text
-CLIENT01 (Windows 11)
-        │
-        ▼
-DC01 (Domain Controller)
-        │
-        ▼
-SYNC01 (Entra Connect)
-        │
-        ▼
-Microsoft Entra ID
-```
-
----
-
-## 🖥️ Environment
-
-- **DC01** – Active Directory Domain Controller
-- **SYNC01** – Microsoft Entra Connect Sync Server
-- **CLIENT01** – Windows 11 domain-joined workstation
-- **Microsoft Entra ID** – Cloud identity platform
-
----
-
-## ⚙️ Features Implemented
+## 🧭 Overview
+This guide walks through building a hybrid identity environment using:
 
 - Active Directory Domain Services (AD DS)
-- Organizational Units and security groups
-- Department-based file shares and NTFS permissions
-- Group Policy drive mapping
-- Microsoft Entra Connect (directory synchronization)
-- Hybrid Microsoft Entra joined device
-- Security Defaults (baseline MFA)
-
----
-
-## ☁️ Hybrid Identity Flow
-
-```text
-User logs in → CLIENT01 → DC01 (authentication)
-
-DC01 → SYNC01 → Microsoft Entra ID (sync users + passwords)
-
-CLIENT01 → Microsoft Entra ID (device registration)
-```
-
----
-
-## 📄 Documentation
-
-- [Setup Guide](./SETUP-GUIDE.md)
-- [Architecture](./ARCHITECTURE.md)
-
----
-
-## 🧠 Skills Demonstrated
-
-- Active Directory Administration
-- Identity & Access Management (IAM)
-- Hybrid Identity (On-Prem + Cloud)
 - Microsoft Entra Connect
-- Group Policy (GPO)
-- NTFS Permissions
-- Azure Identity Management
-- Device Identity (Hybrid Join)
+- Microsoft Entra ID (Azure)
+
+The goal is to synchronize on-prem users and devices to the cloud.
 
 ---
 
-## 📸 Screenshots
+## 🖥️ Lab Environment
 
-> (Add your screenshots here after uploading to the IMAGES folder)
-
-```markdown
-![Users](./IMAGES/entra-users.png)
-![Devices](./IMAGES/entra-devices.png)
-```
-
----
-
-## 💼 Resume-Ready Description
-
-> Built a hybrid identity lab integrating on-premises Active Directory with Microsoft Entra ID using Entra Connect. Configured hybrid joined devices, synchronized users and groups, and implemented baseline identity security using Security Defaults.
+| Machine   | Role                          |
+|----------|-------------------------------|
+| DC01     | Domain Controller (AD DS)     |
+| SYNC01   | Entra Connect Server          |
+| CLIENT01 | Domain-joined Windows client  |
 
 ---
 
-## 🚀 Future Improvements
+## ⚙️ Step 1: Configure Domain Controller (DC01)
 
-- Conditional Access policies (requires P1 license)
-- Self-Service Password Reset (SSPR)
-- Microsoft Intune device management
-- Monitoring and logging (Entra sign-in logs)
+### Install AD DS
+1. Open Server Manager  
+2. Click Add Roles and Features  
+3. Select:
+   - Active Directory Domain Services  
+   - DNS Server  
+4. Complete installation  
+
+---
+
+### Promote to Domain Controller
+1. Click "Promote this server to a domain controller"  
+2. Choose "Add a new forest"  
+3. Root domain name:
+
+corp.local
+
+4. Set DSRM password  
+5. Complete setup and reboot  
+
+---
+
+## 👥 Step 2: Create Users & Groups
+
+### Create Organizational Units
+- IT  
+- HR  
+- Sales  
+
+### Create Users
+- alice.it  
+- bob.hr  
+- charlie.sales  
+
+### Create Security Groups
+- GG_IT_Users  
+- GG_HR_Users  
+- GG_Sales_Users  
+
+### Assign Users to Groups
+- Add each user to their respective department group  
+
+---
+
+## 📁 Step 3: Create File Shares
+
+### Create Folder Structure
+
+C:\Shares\IT  
+C:\Shares\HR  
+C:\Shares\Sales  
+
+---
+
+### Configure NTFS Permissions
+- GG_IT_Users → Modify (IT folder)  
+- GG_HR_Users → Modify (HR folder)  
+- GG_Sales_Users → Modify (Sales folder)  
+
+---
+
+### Share the Folder
+
+\\DC01\Company  
+
+---
+
+## 🧩 Step 4: Configure Group Policy (Drive Mapping)
+
+1. Open Group Policy Management  
+2. Create a new GPO: Department Drive Mapping  
+
+### Configure Drive Mapping
+
+Navigate to:
+
+User Configuration → Preferences → Windows Settings → Drive Maps  
+
+Create mappings:
+
+- IT → I: drive  
+- HR → H: drive  
+- Sales → S: drive  
+
+---
+
+## 🔗 Step 5: Configure CLIENT01
+
+### Set DNS
+10.0.0.10  
+
+### Join Domain
+corp.local  
+
+Login using:
+corp\Administrator  
+
+Restart the machine.
+
+---
+
+### Test User Login
+
+corp\alice.it  
+corp\bob.hr  
+corp\charlie.sales  
+
+---
+
+## 🔄 Step 6: Configure SYNC01
+
+### Join Domain
+corp.local  
+
+Login as:
+corp\Administrator  
+
+---
+
+## ☁️ Step 7: Install Microsoft Entra Connect
+
+1. Download Microsoft Entra Connect  
+2. Run installer  
+3. Choose Express Settings  
+
+### Sign In
+admin@yourtenant.onmicrosoft.com  
+
+### Connect to AD DS
+corp\Administrator  
+
+---
+
+## 🔁 Step 8: Force Sync
+
+Run on SYNC01:
+
+Import-Module ADSync  
+Start-ADSyncSyncCycle -PolicyType Delta  
+
+---
+
+## 💻 Step 9: Hybrid Join Device
+
+On CLIENT01, run:
+
+dsregcmd /status  
+
+Expected:
+
+AzureAdJoined : YES  
+DomainJoined  : YES  
+
+---
+
+## ☁️ Step 10: Verify in Microsoft Entra ID
+
+Check:
+- Users → Synced from on-prem  
+- Devices → CLIENT01 shows as Hybrid Joined  
+
+---
+
+## 🧪 Validation Checklist
+
+- Domain created  
+- Users and groups created  
+- File shares working  
+- Client joined to domain  
+- Users synced to Entra ID  
+- Device hybrid joined  
+
+---
+
+## ⚠️ Common Issues
+
+### Domain join fails
+- Check DNS (must point to DC01)
+
+### Sync not working
+Run:
+Start-ADSyncSyncCycle -PolicyType Delta  
+
+### corp.local not resolving
+- Disable IPv6 in lab if needed  
 
 ---
 
 ## 👤 Author
 
 Calvin Wong
-
