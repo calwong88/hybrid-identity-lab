@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Temp Files
+*.tmp
+*.bak
+
+# PowerShell history
+*.ps1xml
