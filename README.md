@@ -11,7 +11,7 @@ It simulates a real enterprise setup where identities are managed on-premises an
 
 ## Architecture Diagram
 
-![Architecture](./IMAGES/architecture-diagram.png)
+![Architecture](./IMAGES/advanced-architecture-diagram.png)
 
 ---
 
