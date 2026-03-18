@@ -14,14 +14,6 @@ This mirrors how real enterprise environments manage identity across on-prem and
 
 ## 🏗️ High-Level Architecture
 
-```text
-CLIENT01 (Windows 11)
-        │
-        ▼
-DC01 (Active Directory Domain Controller)
-        │
-        ▼
-SYNC01 (Microsoft Entra Connect)
-        │
-        ▼
-Microsoft Entra ID (Azure)
+## Architecture Diagram
+
+![Architecture](./IMAGES/architecture-diagram.png)

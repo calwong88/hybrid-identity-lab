@@ -9,18 +9,9 @@ It simulates a real enterprise setup where identities are managed on-premises an
 
 ## 🏗️ Architecture
 
-```text
-CLIENT01 (Windows 11)
-        │
-        ▼
-DC01 (Domain Controller)
-        │
-        ▼
-SYNC01 (Entra Connect)
-        │
-        ▼
-Microsoft Entra ID
-```
+## Architecture Diagram
+
+![Architecture](./IMAGES/architecture-diagram.png)
 
 ---
 
