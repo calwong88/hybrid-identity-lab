@@ -7,11 +7,11 @@ It simulates a real enterprise setup where identities are managed on-premises an
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Architectures
 
 ## Architecture Diagram
 
-![Architecture](./IMAGES/github-style-architecture.png)
+![Architecture](./IMAGES/enterprise-architecture-diagram.png)
 
 ---
 
