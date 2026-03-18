@@ -16,4 +16,4 @@ This mirrors how real enterprise environments manage identity across on-prem and
 
 ## Architecture Diagram
 
-![Architecture](./IMAGES/advanced-architecture-diagram.png)
+![Architecture](./IMAGES/github-style-architecture.png)
