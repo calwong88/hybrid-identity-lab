@@ -72,10 +72,19 @@ CLIENT01 → Microsoft Entra ID (device registration)
 
 > (Add your screenshots here after uploading to the IMAGES folder)
 
-```markdown
-![Users](./IMAGES/entra-users.png)
-![Devices](./IMAGES/entra-devices.png)
-```
+### Users (Synced from Active Directory)
+![Entra Users](./IMAGES/entra-users.png)
+
+### Devices (Hybrid Azure AD Join)
+![Entra Devices](./IMAGES/entra-devices.png)
+
+### Active Directory Structure
+![HR Users](./IMAGES/ad-users-hr.png)
+![IT Users](./IMAGES/ad-users-it.png)
+![Sales Users](./IMAGES/ad-users-sales.png)
+
+### File Share Permissions
+![File Shares](./IMAGES/file-shares.png)
 
 ---
 
