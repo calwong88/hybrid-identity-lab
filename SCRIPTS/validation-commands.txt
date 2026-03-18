@@ -1,0 +1,14 @@
+# Check hybrid join status
+dsregcmd /status
+
+# Force group policy update
+gpupdate /force
+
+# Check logged-in user
+whoami
+
+# Test domain connectivity
+ping dc01
+
+# Force Entra sync (run on SYNC01)
+Start-ADSyncSyncCycle -PolicyType Delta
