@@ -70,8 +70,6 @@ CLIENT01 → Microsoft Entra ID (device registration)
 
 ## 📸 Screenshots
 
-> (Add your screenshots here after uploading to the IMAGES folder)
-
 ### Users (Synced from Active Directory)
 ![Entra Users](./IMAGES/entra-users.png)
 
