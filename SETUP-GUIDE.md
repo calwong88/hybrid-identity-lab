@@ -214,3 +214,5 @@ Start-ADSyncSyncCycle -PolicyType Delta
 ## 👤 Author
 
 Calvin Wong
+
+https://www.linkedin.com/in/calvinkmwong/

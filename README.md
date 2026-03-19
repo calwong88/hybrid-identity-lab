@@ -11,7 +11,7 @@
 
 ## 🧭 Overview
 This project demonstrates a **hybrid identity architecture** where on-premises Active Directory is integrated with **Microsoft Entra ID (Azure AD)**.
-
+s
 It simulates a real-world enterprise environment where identities are:
 - Managed on-prem
 - Synchronized to the cloud
@@ -150,3 +150,5 @@ CLIENT01 → Microsoft Entra ID (device registration)
 ## 👤 Author
 
 Calvin Wong
+
+https://www.linkedin.com/in/calvinkmwong/
